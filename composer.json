@@ -1,0 +1,48 @@
+{
+    "name": "appserver-io/console",
+    "description": "Console implementation for PHP application server",
+    "homepage": "https://github.com/appserver-io/console",
+    "license": "OSL-3.0",
+    "require": {
+        "php": ">=5.5.0 < 7.0.0",
+        "doctrine/orm": "2.5.*",
+        "doctrine/migrations" : "1.5.0",
+        "monolog/monolog": "1.16.0",
+        "graze/telnet-client": "2.0.*",
+        "symfony/yaml": "3.4.*",
+        "symfony/config": "3.4.*",
+        "symfony/console" : "3.4.*",
+        "symfony/var-dumper": "3.4.*",
+        "symfony/expression-language": "3.4.*",
+        "symfony/dependency-injection": "3.4.*",
+        "appserver-io-psr/application": "1.3.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "AppserverIo\\Console\\": [
+                "src/",
+                "tests/"
+            ]
+        }
+    },
+    "bin": [
+        "bin/console",
+        "bin/console.php"
+    ],
+    "authors": [
+        {
+            "name": "Tim Wagner",
+            "email": "tw@appserver.io",
+            "homepage": "https://github.com/wagnert",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "tw@appserver.io",
+        "issues": "https://github.com/appserver-io/console/issues",
+        "source": "https://github.com/appserver-io/console"
+    },
+    "keywords": [
+        "console php application server"
+    ]
+}
