@@ -22,7 +22,7 @@
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use AppserverIo\Console\Utils\DependencyInjectionKeys;
+use AppserverIo\Console\Client\Utils\DependencyInjectionKeys;
 
 // initialize the DI container and set the vendor directory
 $container = new ContainerBuilder();
@@ -30,7 +30,7 @@ $container->setParameter(DependencyInjectionKeys::CONFIGURATION_VENDOR_DIR, $ven
 
 // initialize the default loader and load the DI configuration for the this library
 $defaultLoader = new XmlFileLoader($container, new FileLocator($vendorDir));
-$defaultLoader->load(__DIR__ . '/src/Resources/config/services.xml');
+$defaultLoader->load(__DIR__ . '/src/Client/Resources/config/services.xml');
 
 // initialize and run the application
 $statusCode = $container->get(DependencyInjectionKeys::APPLICATION)

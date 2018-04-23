@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="logger.channel">appserver-io</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="service_container" synthetic="true" />
+
+        <service id="input" class="Symfony\Component\Console\Input\ArgvInput"/>
+        <service id="output" class="Symfony\Component\Console\Output\ConsoleOutput"/>
+
+        <service id="logger.handler" class="Monolog\Handler\ErrorLogHandler"/>
+        <service id="logger" class="Monolog\Logger">
+            <argument>%logger.channel%</argument>
+            <call method="pushHandler">
+                <argument type="service" id="logger.handler" />
+            </call>
+        </service>
+
+        <service id="console.command.migrations.diff" class="AppserverIo\Console\Client\Commands\Migrations\DiffCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.migrations.execute" class="AppserverIo\Console\Client\Commands\Migrations\ExecuteCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.migrations.generate" class="AppserverIo\Console\Client\Commands\Migrations\GenerateCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.migrations.latest" class="AppserverIo\Console\Client\Commands\Migrations\LatestCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.migrations.migrate" class="AppserverIo\Console\Client\Commands\Migrations\MigrateCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.migrations.status" class="AppserverIo\Console\Client\Commands\Migrations\StatusCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.migrations.up-to-date" class="AppserverIo\Console\Client\Commands\Migrations\UpToDateCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.migrations.version" class="AppserverIo\Console\Client\Commands\Migrations\VersionCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.convert-doctrine1-schema" class="AppserverIo\Console\Client\Commands\Orm\ConvertDoctrine1SchemaCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.convert-mapping" class="AppserverIo\Console\Client\Commands\Orm\ConvertMappingCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.ensure-production-settings" class="AppserverIo\Console\Client\Commands\Orm\EnsureProductionSettingsCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.generate-entities" class="AppserverIo\Console\Client\Commands\Orm\GenerateEntitiesCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.generate-proxies" class="AppserverIo\Console\Client\Commands\Orm\GenerateProxiesCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.generate-repositories" class="AppserverIo\Console\Client\Commands\Orm\GenerateRepositoriesCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.info" class="AppserverIo\Console\Client\Commands\Orm\InfoCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.mapping-describe" class="AppserverIo\Console\Client\Commands\Orm\MappingDescribeCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.run-dql" class="AppserverIo\Console\Client\Commands\Orm\RunDqlCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.validate-schema" class="AppserverIo\Console\Client\Commands\Orm\ValidateSchemaCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.clear-cache.collection-region" class="AppserverIo\Console\Client\Commands\Orm\ClearCache\CollectionRegionCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.clear-cache.entity-region" class="AppserverIo\Console\Client\Commands\Orm\ClearCache\EntityRegionCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.clear-cache.metadata" class="AppserverIo\Console\Client\Commands\Orm\ClearCache\MetadataCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.clear-cache.query" class="AppserverIo\Console\Client\Commands\Orm\ClearCache\QueryCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.clear-cache.query-region" class="AppserverIo\Console\Client\Commands\Orm\ClearCache\QueryRegionCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.clear-cache.result" class="AppserverIo\Console\Client\Commands\Orm\ClearCache\ResultCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.schema-tool.create" class="AppserverIo\Console\Client\Commands\Orm\SchemaTool\CreateCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.schema-tool.drop" class="AppserverIo\Console\Client\Commands\Orm\SchemaTool\DropCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.orm.schema-tool.update" class="AppserverIo\Console\Client\Commands\Orm\SchemaTool\UpdateCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.dbal.import" class="AppserverIo\Console\Client\Commands\Dbal\ImportCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.dbal.reserved-words" class="AppserverIo\Console\Client\Commands\Dbal\ReservedWordsCommand">
+            <argument id="logger" type="service"/>
+        </service>
+        <service id="console.command.dbal.run-sql" class="AppserverIo\Console\Client\Commands\Dbal\RunSqlCommand">
+            <argument id="logger" type="service"/>
+        </service>
+
+        <service id="application" class="AppserverIo\Console\Client\Application">
+            <call method="add">
+                <argument id="console.command.migrations.diff" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.migrations.execute" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.migrations.generate" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.migrations.latest" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.migrations.migrate" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.migrations.status" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.migrations.up-to-date" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.migrations.version" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.convert-doctrine1-schema" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.convert-mapping" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.ensure-production-settings" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.generate-entities" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.generate-proxies" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.generate-repositories" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.info" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.mapping-describe" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.run-dql" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.validate-schema" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.clear-cache.collection-region" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.clear-cache.entity-region" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.clear-cache.metadata" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.clear-cache.query" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.clear-cache.query-region" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.clear-cache.result" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.schema-tool.create" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.schema-tool.drop" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.orm.schema-tool.update" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.dbal.import" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.dbal.reserved-words" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.dbal.run-sql" type="service"/>
+            </call>
+        </service>
+
+    </services>
+
+</container>

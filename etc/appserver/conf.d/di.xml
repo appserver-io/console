@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<di xmlns="http://www.appserver.io/appserver">
+
+    <!-- ==================================================================================== -->
+    <!--  BEAN DEFINITIONS                                                                    -->
+    <!-- ==================================================================================== -->
+
+    <beans>
+
+        <!-- ================================================================================ -->
+        <!--  APPLICATION BEAN DEFINITIONS                                                    -->
+        <!-- ================================================================================ -->
+
+        <bean>
+            <name>OutputWriter</name>
+            <class>AppserverIo\Console\Server\Doctrine\DBAL\Migrations\OutputWriter</class>
+        </bean>
+        <bean>
+            <name>Connection</name>
+            <class>Doctrine\DBAL\Connection</class>
+            <factory>
+                <name>ProjectEntityManager</name>
+                <method>getConnection</method>
+            </factory>
+        </bean>
+        <bean>
+            <name>SchemaManager</name>
+            <class>Doctrine\DBAL\Schema\AbstractSchemaManager</class>
+            <factory>
+                <name>Connection</name>
+                <method>getSchemaManager</method>
+            </factory>
+        </bean>
+        <bean>
+            <name>Platform</name>
+            <class>Doctrine\DBAL\Platforms\AbstractPlatform</class>
+            <factory>
+                <name>Connection</name>
+                <method>getDatabasePlatform</method>
+            </factory>
+        </bean>
+        <bean>
+            <name>Configuration</name>
+            <class>AppserverIo\Console\Server\Doctrine\DBAL\Migrations\Configuration\Configuration</class>
+            <bean-ref>
+                <bean-ref-name>Connection</bean-ref-name>
+            </bean-ref>
+            <bean-ref>
+                <bean-ref-name>OutputWriter</bean-ref-name>
+            </bean-ref>
+        </bean>
+        <bean>
+            <name>Version</name>
+            <class>AppserverIo\Console\Server\Doctrine\DBAL\Migrations\Version</class>
+            <shared>false</shared>
+            <bean-ref>
+                <bean-ref-name>Configuration</bean-ref-name>
+                <bean-link>Configuration</bean-link>
+            </bean-ref>
+        </bean>
+
+        <!-- ================================================================================ -->
+        <!--  HELPER BEAN DEFINITIONS                                                         -->
+        <!-- ================================================================================ -->
+
+        <bean>
+            <name>ConnectionHelper</name>
+            <class>Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper</class>
+            <bean-ref>
+                <bean-ref-name>Connection</bean-ref-name>
+            </bean-ref>
+        </bean>
+        <bean>
+            <name>QuestionHelper</name>
+            <class>Symfony\Component\Console\Helper\QuestionHelper</class>
+        </bean>
+        <bean>
+            <name>ConfigurationHelper</name>
+            <class>AppserverIo\Console\Server\Doctrine\DBAL\Migrations\Tools\Console\Helper\ConfigurationHelper</class>
+            <res-ref>
+                <res-ref-name>Application</res-ref-name>
+                <res-ref-type>ApplicationInterface</res-ref-type>
+            </res-ref>
+            <bean-ref>
+                <bean-ref-name>Connection</bean-ref-name>
+            </bean-ref>
+        </bean>
+        <bean>
+            <name>EntityManagerHelper</name>
+            <class>Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper</class>
+            <persistence-unit-ref>
+                <persistence-unit-ref-name>em</persistence-unit-ref-name>
+                <persistence-unit-name>ProjectEntityManager</persistence-unit-name>
+            </persistence-unit-ref>
+        </bean>
+
+        <!-- ================================================================================ -->
+        <!--  HELPER SET BEAN DEFINITIONS                                                     -->
+        <!-- ================================================================================ -->
+
+        <bean>
+            <name>HelperSet</name>
+            <class>Symfony\Component\Console\Helper\HelperSet</class>
+            <method-invocation>
+                <method-name>set</method-name>
+	            <argument>ConnectionHelper</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>set</method-name>
+                <argument>EntityManagerHelper</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>set</method-name>
+                <argument>QuestionHelper</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>set</method-name>
+                <argument>ConfigurationHelper</argument>
+            </method-invocation>
+        </bean>
+
+        <!-- ================================================================================ -->
+        <!--  COMMAND BEAN DEFINITIONS                                                        -->
+        <!-- ================================================================================ -->
+
+        <bean>
+            <name>DiffCommand</name>
+            <class>Doctrine\DBAL\Migrations\Tools\Console\Command\DiffCommand</class>
+        </bean>
+        <bean>
+            <name>ExecuteCommand</name>
+            <class>Doctrine\DBAL\Migrations\Tools\Console\Command\ExecuteCommand</class>
+        </bean>
+        <bean>
+            <name>GenerateCommand</name>
+            <class>Doctrine\DBAL\Migrations\Tools\Console\Command\GenerateCommand</class>
+        </bean>
+        <bean>
+            <name>LatestCommand</name>
+            <class>Doctrine\DBAL\Migrations\Tools\Console\Command\LatestCommand</class>
+        </bean>
+        <bean>
+            <name>MigrateCommand</name>
+            <class>Doctrine\DBAL\Migrations\Tools\Console\Command\MigrateCommand</class>
+        </bean>
+        <bean>
+            <name>StatusCommand</name>
+            <class>Doctrine\DBAL\Migrations\Tools\Console\Command\StatusCommand</class>
+        </bean>
+        <bean>
+            <name>UpToDateCommand</name>
+            <class>Doctrine\DBAL\Migrations\Tools\Console\Command\UpToDateCommand</class>
+        </bean>
+        <bean>
+            <name>VersionCommand</name>
+            <class>Doctrine\DBAL\Migrations\Tools\Console\Command\VersionCommand</class>
+        </bean>
+
+        <!-- ================================================================================ -->
+        <!--  APPLICATION BEAN DEFINITIONS                                                    -->
+        <!-- ================================================================================ -->
+
+        <bean>
+            <name>Console</name>
+            <class>Symfony\Component\Console\Application</class>
+            <method-invocation>
+                <method-name>setHelperSet</method-name>
+                <argument>HelperSet</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>DiffCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>ExecuteCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>GenerateCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>LatestCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>MigrateCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>UpToDateCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>VersionCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>StatusCommand</argument>
+            </method-invocation>
+        </bean>
+
+    </beans>
+
+</di>
