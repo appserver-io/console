@@ -65,7 +65,7 @@
 
         <bean>
             <name>ConnectionHelper</name>
-            <class>Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper</class>
+            <class>AppserverIo\Console\Server\Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper</class>
             <bean-ref>
                 <bean-ref-name>Connection</bean-ref-name>
             </bean-ref>
@@ -87,7 +87,7 @@
         </bean>
         <bean>
             <name>EntityManagerHelper</name>
-            <class>Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper</class>
+            <class>AppserverIo\Console\Server\Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper</class>
             <persistence-unit-ref>
                 <persistence-unit-ref-name>em</persistence-unit-ref-name>
                 <persistence-unit-name>ProjectEntityManager</persistence-unit-name>
@@ -133,7 +133,7 @@
         </bean>
         <bean>
             <name>GenerateCommand</name>
-            <class>Doctrine\DBAL\Migrations\Tools\Console\Command\GenerateCommand</class>
+            <class>AppserverIo\Console\Server\Doctrine\DBAL\Migrations\Tools\Console\Command\GenerateCommand</class>
         </bean>
         <bean>
             <name>LatestCommand</name>
@@ -154,6 +154,94 @@
         <bean>
             <name>VersionCommand</name>
             <class>Doctrine\DBAL\Migrations\Tools\Console\Command\VersionCommand</class>
+        </bean>
+        <bean>
+            <name>CollectionRegionCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\ClearCache\CollectionRegionCommand</class>
+        </bean>
+        <bean>
+            <name>EntityRegionCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\ClearCache\EntityRegionCommand</class>
+        </bean>
+        <bean>
+            <name>MetadataCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\ClearCache\MetadataCommand</class>
+        </bean>
+        <bean>
+            <name>QueryCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\ClearCache\QueryCommand</class>
+        </bean>
+        <bean>
+            <name>QueryRegionCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\ClearCache\QueryRegionCommand</class>
+        </bean>
+        <bean>
+            <name>ResultCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\ClearCache\ResultCommand</class>
+        </bean>
+        <bean>
+            <name>CreateCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\SchemaTool\CreateCommand</class>
+        </bean>
+        <bean>
+            <name>DropCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\SchemaTool\DropCommand</class>
+        </bean>
+        <bean>
+            <name>UpdateCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\SchemaTool\UpdateCommand</class>
+        </bean>
+        <bean>
+            <name>ConvertDoctrine1SchemaCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\ConvertDoctrine1SchemaCommand</class>
+        </bean>
+        <bean>
+            <name>ConvertMappingCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\ConvertMappingCommand</class>
+        </bean>
+        <bean>
+            <name>EnsureProductionSettingsCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\EnsureProductionSettingsCommand</class>
+        </bean>
+        <bean>
+            <name>GenerateEntitiesCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\GenerateEntitiesCommand</class>
+        </bean>
+        <bean>
+            <name>GenerateProxiesCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\GenerateProxiesCommand</class>
+        </bean>
+        <bean>
+            <name>GenerateRepositoriesCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\GenerateRepositoriesCommand</class>
+        </bean>
+        <bean>
+            <name>InfoCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\InfoCommand</class>
+        </bean>
+        <bean>
+            <name>MappingDescribeCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\MappingDescribeCommand</class>
+        </bean>
+        <bean>
+            <name>RunDqlCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\RunDqlCommand</class>
+        </bean>
+        <bean>
+            <name>ValidateSchemaCommand</name>
+            <class>Doctrine\ORM\Tools\Console\Command\ValidateSchemaCommand</class>
+        </bean>
+        <bean>
+            <name>ImportCommand</name>
+            <class>Doctrine\DBAL\Tools\Console\Command\ImportCommand</class>
+        </bean>
+        <bean>
+            <name>ReservedWordsCommand</name>
+            <class>Doctrine\DBAL\Tools\Console\Command\ReservedWordsCommand</class>
+        </bean>
+        <bean>
+            <name>RunSqlCommand</name>
+            <class>Doctrine\DBAL\Tools\Console\Command\RunSqlCommand</class>
         </bean>
 
         <!-- ================================================================================ -->
@@ -198,6 +286,94 @@
             <method-invocation>
                 <method-name>add</method-name>
                 <argument>StatusCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>CollectionRegionCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>EntityRegionCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>MetadataCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>QueryCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>QueryRegionCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>ResultCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>CreateCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>DropCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>UpdateCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>ConvertDoctrine1SchemaCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>ConvertMappingCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>EnsureProductionSettingsCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>GenerateEntitiesCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>GenerateProxiesCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>GenerateRepositoriesCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>InfoCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>MappingDescribeCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>RunDqlCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>ValidateSchemaCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>ImportCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>ReservedWordsCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>RunSqlCommand</argument>
             </method-invocation>
         </bean>
 

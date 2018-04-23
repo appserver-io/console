@@ -147,7 +147,7 @@ trait CommandTrait
         }
 
         // initialize the command itself
-        $command = sprintf('AppserverIo\Console\Server\Commands\ConsoleCommand %s %s %s', $this->getApplicationName($input), $this->getCommandName(), $this->getName());
+        $command = sprintf('console %s %s %s', $this->getApplicationName($input), $this->getCommandName(), $this->getName());
 
         // append the options that has to be passed
         if ($opts = trim(implode(' ', $options))) {
