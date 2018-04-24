@@ -467,7 +467,7 @@ class Configuration extends \Doctrine\DBAL\Migrations\Configuration\Configuratio
         $migration = $this->getContainer()->get($reflectionClass->getShortName());
 
         // load a new version instance and initialize it with the migration and the metadata
-        $versionInstance = $this->getContainer()->get(DependencyInjectionKeys::VERSION);
+        $versionInstance = $migration->getVersion();
         $versionInstance->setMigration($migration);
         $versionInstance->setVersion($version);
         $versionInstance->setClass($class);
