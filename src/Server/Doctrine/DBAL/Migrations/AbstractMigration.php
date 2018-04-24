@@ -79,6 +79,16 @@ abstract class AbstractMigration
     protected $platform;
 
     /**
+     * Return's the version instance.
+     *
+     * @return \AppserverIo\Console\Server\Doctrine\DBAL\Migrations\Version The version instance
+     */
+    public function getVersion()
+    {
+        return $this->version;
+    }
+
+    /**
      * Indicates the transactional mode of this migration.
      * If this function returns true (default) the migration will be executed in one transaction,
      * otherwise non-transactional state will be used to execute each of the migration SQLs.
