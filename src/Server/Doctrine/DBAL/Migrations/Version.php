@@ -118,7 +118,7 @@ class Version extends \Doctrine\DBAL\Migrations\Version
     /**
      *  Initialize the Version with the passed configuration.
      *
-     * @param \AppserverIo\Console\Doctrine\DBAL\Migrations\Configuration\Configuration $configuration The configuration
+     * @param \AppserverIo\Console\Server\Doctrine\DBAL\Migrations\Configuration\Configuration $configuration The configuration
      */
     public function __construct(Configuration $configuration)
     {
