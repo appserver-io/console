@@ -131,36 +131,13 @@ trait CommandTrait
         // initialize the DSV to connect to
         $dsn = sprintf('%s:%d', $input->getOption(InputOptionKeys::HOSTNAME), $input->getOption(InputOptionKeys::PORT));
 
-        // initialize the options that has to be passed
-        $options = array();
-
-        // prepare the options we want to pass through
-        foreach ($input->getOptions() as $name => $value) {
-            // do NOT pass client options
-            if (InputOptionKeys::isOption($name)) {
-                continue;
-            }
-            // append real command options
-            if ($value) {
-                $options[] = "--$name=$value";
-            }
-        }
-
         // initialize the command itself
-        $command = sprintf('console %s %s %s', $this->getApplicationName($input), $this->getCommandName(), $this->getName());
-
-        // append the options that has to be passed
-        if ($opts = trim(implode(' ', $options))) {
-            $command .= sprintf(' %s', $opts);
-        }
-
-        // append the arguments that has to be passed
-        if ($args = trim(str_replace($this->getName(), null, implode(' ', $input->getArguments())))) {
-            $command .= sprintf(' "%s"', $args);
-        }
-
-        // log the command that'll be executed
-        $this->getLogger()->info(sprintf('Now execute command [%s]: %s', $dsn, $command));
+        $command = sprintf(
+            'console %s %s %s',
+            $this->getApplicationName($input),
+            $this->getCommandName(),
+            $input->__toString()
+        );
 
         // initialize the telnet client, connect and execute the command on the remot host
         $client = \Graze\TelnetClient\TelnetClient::factory();

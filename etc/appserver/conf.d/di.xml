@@ -19,8 +19,16 @@
             <name>Connection</name>
             <class>Doctrine\DBAL\Connection</class>
             <factory>
-                <name>ProjectEntityManager</name>
+                <name>DefaultEntityManager</name>
                 <method>getConnection</method>
+            </factory>
+        </bean>
+        <bean>
+            <name>DefaultEntityManager</name>
+            <class>Doctrine\DBAL\Connection</class>
+            <factory>
+                <name>EntityManagerHelper</name>
+                <method>getEntityManager</method>
             </factory>
         </bean>
         <bean>
@@ -58,6 +66,14 @@
                 <bean-link>Configuration</bean-link>
             </bean-ref>
         </bean>
+        <bean>
+            <name>FixtureLoader</name>
+            <class>AppserverIo\Console\Server\Doctrine\Fixtures\Loader</class>
+            <res-ref>
+                <res-ref-name>Application</res-ref-name>
+                <res-ref-type>ApplicationInterface</res-ref-type>
+            </res-ref>
+        </bean>
 
         <!-- ================================================================================ -->
         <!--  HELPER BEAN DEFINITIONS                                                         -->
@@ -88,10 +104,26 @@
         <bean>
             <name>EntityManagerHelper</name>
             <class>AppserverIo\Console\Server\Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper</class>
-            <persistence-unit-ref>
-                <persistence-unit-ref-name>em</persistence-unit-ref-name>
-                <persistence-unit-name>ProjectEntityManager</persistence-unit-name>
-            </persistence-unit-ref>
+            <res-ref>
+                <res-ref-name>Application</res-ref-name>
+                <res-ref-type>ApplicationInterface</res-ref-type>
+            </res-ref>
+        </bean>
+        <bean>
+            <name>FixtureLoaderHelper</name>
+            <class>AppserverIo\Console\Server\Doctrine\Fixtures\Helper\FixtureLoaderHelper</class>
+            <res-ref>
+                <res-ref-name>Application</res-ref-name>
+                <res-ref-type>ApplicationInterface</res-ref-type>
+            </res-ref>
+        </bean>
+        <bean>
+            <name>ApplicationHelper</name>
+            <class>AppserverIo\Console\Server\Doctrine\Fixtures\Helper\ApplicationHelper</class>
+            <res-ref>
+                <res-ref-name>Application</res-ref-name>
+                <res-ref-type>ApplicationInterface</res-ref-type>
+            </res-ref>
         </bean>
 
         <!-- ================================================================================ -->
@@ -116,6 +148,14 @@
             <method-invocation>
                 <method-name>set</method-name>
                 <argument>ConfigurationHelper</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>set</method-name>
+                <argument>FixtureLoaderHelper</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>set</method-name>
+                <argument>ApplicationHelper</argument>
             </method-invocation>
         </bean>
 
@@ -242,6 +282,10 @@
         <bean>
             <name>RunSqlCommand</name>
             <class>Doctrine\DBAL\Tools\Console\Command\RunSqlCommand</class>
+        </bean>
+        <bean>
+            <name>LoadCommand</name>
+            <class>AppserverIo\Console\Server\Doctrine\Fixtures\LoadCommand</class>
         </bean>
 
         <!-- ================================================================================ -->
@@ -374,6 +418,10 @@
             <method-invocation>
                 <method-name>add</method-name>
                 <argument>RunSqlCommand</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>add</method-name>
+                <argument>LoadCommand</argument>
             </method-invocation>
         </bean>
 

@@ -112,6 +112,9 @@
         <service id="console.command.dbal.run-sql" class="AppserverIo\Console\Client\Commands\Dbal\RunSqlCommand">
             <argument id="logger" type="service"/>
         </service>
+        <service id="console.command.fixtures.load" class="AppserverIo\Console\Client\Commands\Fixtures\LoadCommand">
+            <argument id="logger" type="service"/>
+        </service>
 
         <service id="application" class="AppserverIo\Console\Client\Application">
             <call method="add">
@@ -203,6 +206,9 @@
             </call>
             <call method="add">
                 <argument id="console.command.dbal.run-sql" type="service"/>
+            </call>
+            <call method="add">
+                <argument id="console.command.fixtures.load" type="service"/>
             </call>
         </service>
 

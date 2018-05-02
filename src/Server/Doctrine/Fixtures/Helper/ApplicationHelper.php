@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AppserverIo\Console\Server\Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper
+ * AppserverIo\Console\Server\Doctrine\Fixtures\Helper\ApplicationHelper
  *
  * NOTICE OF LICENSE
  *
@@ -18,10 +18,10 @@
  * @link      http://www.appserver.io
  */
 
-namespace AppserverIo\Console\Server\Doctrine\ORM\Tools\Console\Helper;
+namespace AppserverIo\Console\Server\Doctrine\Fixtures\Helper;
 
+use Symfony\Component\Console\Helper\Helper;
 use AppserverIo\Psr\Application\ApplicationInterface;
-use AppserverIo\Psr\EnterpriseBeans\PersistenceContextInterface;
 
 /**
  * Helper implementation that returns the application's entity manager instance.
@@ -32,7 +32,7 @@ use AppserverIo\Psr\EnterpriseBeans\PersistenceContextInterface;
  * @link      https://github.com/appserver-io/console
  * @link      http://www.appserver.io
  */
-class EntityManagerHelper extends \Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper
+class ApplicationHelper extends Helper
 {
 
     /**
@@ -57,31 +57,9 @@ class EntityManagerHelper extends \Doctrine\ORM\Tools\Console\Helper\EntityManag
      *
      * @return \AppserverIo\Psr\Application\ApplicationInterface The application instance
      */
-    protected function getApplication()
+    public function getApplication()
     {
         return $this->application;
-    }
-
-    /**
-     * Retrieves the default Doctrine ORM EntityManager.
-     *
-     * @return \Doctrine\ORM\EntityManagerInterface The entity manager instance
-     * @throws \Exception Is thrown, if not default entity manager is available
-     */
-    public function getEntityManager()
-    {
-
-        // load the applications persistence manager
-        /** @var \AppserverIo\Psr\EnterpriseBeans\PersistenceContextInterface $persistenceManager */
-        $persistenceManager = $this->getApplication()->search(PersistenceContextInterface::IDENTIFIER);
-
-        // return the first entity manager
-        foreach ($persistenceManager->getEntityManagerNames() as $lookupName) {
-            return $persistenceManager->lookup($lookupName);
-        }
-
-        // throw an exception, if no default entity manager is available
-        throw new \Exception(sprintf('Can\'t load default entity manager for application "%s"', $this->getApplication()->getUniqueName()));
     }
 
     /**
@@ -92,6 +70,6 @@ class EntityManagerHelper extends \Doctrine\ORM\Tools\Console\Helper\EntityManag
      */
     public function getName()
     {
-        return 'em';
+        return 'application';
     }
 }
