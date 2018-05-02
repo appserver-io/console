@@ -1,3 +1,13 @@
+# Version 3.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Add a console command to load Doctrine Fixtures
+
 # Version 2.0.0
 
 ## Bugfixes

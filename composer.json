@@ -8,6 +8,7 @@
         "psr/container": "1.0.0",
         "doctrine/orm": "2.5.*",
         "doctrine/migrations" : "1.5.0",
+        "doctrine/doctrine-fixtures-bundle" : "2.4.1",
         "monolog/monolog": "1.10.0",
         "graze/telnet-client": "2.0.*",
         "symfony/yaml": "2.8.*",
