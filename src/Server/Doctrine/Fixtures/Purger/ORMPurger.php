@@ -199,6 +199,18 @@ class ORMPurger implements PurgerInterface
                 foreach ($fixture->getEntitiesToPurge() as $className) {
                     // load the table name from the metadata
                     $metadata = $this->em->getMetadataFactory()->getMetadataFor($className);
+                    // load the associated tables (also needs to be cleared)
+                    foreach ($this->getAssociationTables(array($metadata), $platform) as $associationTable) {
+                        // query whether or not the table name is already in the array
+                        if (in_array($associationTable, $includedTables)) {
+                            continue;
+                        }
+
+                        // if the table name is NOT already in the array, add it
+                        array_push($includedTables, $associationTable);
+                    }
+
+                    // load the table name of the fixture itself
                     $tableName = $this->getTableName($metadata, $platform);
 
                     // query whether or not the table name is already in the array
@@ -212,9 +224,14 @@ class ORMPurger implements PurgerInterface
             }
         }
 
+        // load the connection from the entity manager instance
         $connection = $this->em->getConnection();
+
+        // initialize the filter expression
         $filterExpr = $connection->getConfiguration()->getFilterSchemaAssetsExpression();
         $emptyFilterExpression = empty($filterExpr);
+
+        // iterate over the ordered tables and clean them up
         foreach ($orderedTables as $tbl) {
             if (($emptyFilterExpression || preg_match($filterExpr, $tbl)) && array_search($tbl, $includedTables)) {
                 if ($this->purgeMode === self::PURGE_MODE_DELETE) {

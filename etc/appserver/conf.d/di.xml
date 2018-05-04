@@ -125,6 +125,14 @@
                 <res-ref-type>ApplicationInterface</res-ref-type>
             </res-ref>
         </bean>
+        <bean>
+            <name>MigrationEntityManagerHelper</name>
+            <class>AppserverIo\Console\Server\Doctrine\DBAL\Migrations\Tools\Console\Helper\EntityManagerHelper</class>
+            <res-ref>
+                <res-ref-name>Application</res-ref-name>
+                <res-ref-type>ApplicationInterface</res-ref-type>
+            </res-ref>
+        </bean>
 
         <!-- ================================================================================ -->
         <!--  HELPER SET BEAN DEFINITIONS                                                     -->
@@ -156,6 +164,10 @@
             <method-invocation>
                 <method-name>set</method-name>
                 <argument>ApplicationHelper</argument>
+            </method-invocation>
+            <method-invocation>
+                <method-name>set</method-name>
+                <argument>MigrationEntityManagerHelper</argument>
             </method-invocation>
         </bean>
 
