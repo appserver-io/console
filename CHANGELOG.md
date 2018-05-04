@@ -1,3 +1,14 @@
+# Version 4.0.0
+
+## Bugfixes
+
+* Fixed issus when purging tables with relations
+* Fixed missing entity manager helper for migrations:diff command
+
+## Features
+
+* None
+
 # Version 3.0.0
 
 ## Bugfixes
