@@ -1,3 +1,13 @@
+# Version 5.0.1
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Switch to latest appserver-io/description version 11.0.0 and appserver-io-psr/epb version 6.0.0
+
 # Version 5.0.0
 
 ## Bugfixes
