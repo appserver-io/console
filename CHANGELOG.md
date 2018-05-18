@@ -1,3 +1,13 @@
+# Version 5.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Remove dependency to appserver-io, package has now to be delivered with application itself
+
 # Version 4.0.0
 
 ## Bugfixes
