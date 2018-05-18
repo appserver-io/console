@@ -1,3 +1,14 @@
+# Version 5.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Remove dependency to appserver-io, package has now to be delivered with application itself
+* Move annotations and descriptors to appserver-io-psr/epb and appserver-io/description library
+
 # Version 4.0.0
 
 ## Bugfixes
