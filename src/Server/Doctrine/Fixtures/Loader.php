@@ -27,7 +27,7 @@ use Doctrine\Common\DataFixtures\Exception\CircularReferenceException;
 use AppserverIo\Psr\Di\ProviderInterface;
 use AppserverIo\Psr\Di\ObjectManagerInterface;
 use AppserverIo\Psr\Application\ApplicationInterface;
-use AppserverIo\Console\Server\Doctrine\Fixtures\Description\FixtureDescriptorInterface;
+use AppserverIo\Psr\EnterpriseBeans\Description\FixtureDescriptorInterface;
 
 /**
  * A class that loads Doctrine fixtures.
