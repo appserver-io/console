@@ -68,7 +68,7 @@ class LoadCommand extends Command
             ->addArgument('fixtures', InputArgument::OPTIONAL | InputArgument::IS_ARRAY, 'The directory/file to load data fixtures from.')
             ->addOption('append', null, InputOption::VALUE_NONE, 'Append the data fixtures instead of deleting all data from the database first.')
             ->addOption('purge-with-truncate', null, InputOption::VALUE_NONE, 'Purge data by using a database-level TRUNCATE statement')
-            ->addOption('size', null, InputOption::VALUE_OPTIONAL, 'The size of the fixtures that should be created (either "small", "medium", "large" or "huge").', 'small')
+            ->addOption('size', null, InputOption::VALUE_OPTIONAL, 'The size of the fixtures that should be created (either "small", "medium", "large" or "huge").', 'medium')
             ->addOption(InputOptionKeys::PORT, null, InputOption::VALUE_OPTIONAL, 'The default port of the host to execute the commands on', 9023)
             ->addOption(InputOptionKeys::HOSTNAME, null, InputOption::VALUE_OPTIONAL, 'The default host name to execute the commands on', '127.0.0.1')
             ->addOption(InputOptionKeys::APPLICATION_NAME, null, InputOption::VALUE_REQUIRED, 'The application name, if the command is NOT executed from the applications root directory')

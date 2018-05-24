@@ -1,3 +1,13 @@
+# Version 5.0.3
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Switch default value parameter size of fixtures:load command from small to medium
+
 # Version 5.0.2
 
 ## Bugfixes
