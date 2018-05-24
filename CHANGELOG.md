@@ -1,3 +1,13 @@
+# Version 5.0.2
+
+## Bugfixes
+
+* Fixed invalid use statement for interface FixtureDescriptorInterface in Loader class
+
+## Features
+
+* None
+
 # Version 5.0.1
 
 ## Bugfixes
