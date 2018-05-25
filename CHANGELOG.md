@@ -1,3 +1,13 @@
+# Version 6.0.0
+
+## Bugfixes
+
+* Fixed issue with passing client side options though to server commands
+
+## Features
+
+* None
+
 # Version 5.0.3
 
 ## Bugfixes

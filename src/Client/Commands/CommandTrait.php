@@ -118,6 +118,47 @@ trait CommandTrait
     }
 
     /**
+     * Return's an array with the client side option names.
+     *
+     * @return array The array with the option names
+     */
+    protected function getClientOptionNames()
+    {
+        return array(
+            InputOptionKeys::PORT,
+            InputOptionKeys::HOSTNAME,
+            InputOptionKeys::APPLICATION_NAME
+        );
+    }
+
+    /**
+     * Prepares the input string by removing the client options.
+     *
+     * @param \Symfony\Component\Console\Input\InputInterface $input The input stream
+     *
+     * @return mixed
+     */
+    protected function prepareInput(InputInterface $input)
+    {
+
+        // load the input string
+        $theString = $input->__toString();
+
+        // remove the client options before passing the input string to the server
+        foreach ($this->getClientOptionNames() as $optionName) {
+            if ($optionValue = $input->getOption($optionName)) {
+                // initialize the pattern to identify the option name and value
+                $pattern = sprintf('/--%s[="\']{0,}%s[="\']{0,}$/', $optionName, $optionValue);
+                // remove the option name and value
+                $theString = preg_replace($pattern, '', $theString);
+            }
+        }
+
+        // return the input string without the client options
+        return $theString;
+    }
+
+    /**
      * Executes the command's functionality on the remote host.
      *
      * @param \Symfony\Component\Console\Input\InputInterface   $input  The input stream
@@ -136,7 +177,7 @@ trait CommandTrait
             'console %s %s %s',
             $this->getApplicationName($input),
             $this->getCommandName(),
-            $input->__toString()
+            $this->prepareInput($input)
         );
 
         // initialize the telnet client, connect and execute the command on the remot host
