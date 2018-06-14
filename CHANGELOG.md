@@ -1,3 +1,13 @@
+# Version 6.0.1
+
+## Bugfixes
+
+* Fixed issue with invalid usage of array_search when trying to purge tables, replace with in_array
+
+## Features
+
+* None
+
 # Version 6.0.0
 
 ## Bugfixes

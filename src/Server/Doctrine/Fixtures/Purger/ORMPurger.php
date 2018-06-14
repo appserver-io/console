@@ -233,7 +233,7 @@ class ORMPurger implements PurgerInterface
 
         // iterate over the ordered tables and clean them up
         foreach ($orderedTables as $tbl) {
-            if (($emptyFilterExpression || preg_match($filterExpr, $tbl)) && array_search($tbl, $includedTables)) {
+            if (($emptyFilterExpression || preg_match($filterExpr, $tbl)) && in_array($tbl, $includedTables)) {
                 if ($this->purgeMode === self::PURGE_MODE_DELETE) {
                     $connection->executeUpdate("DELETE FROM " . $tbl);
                 } else {
