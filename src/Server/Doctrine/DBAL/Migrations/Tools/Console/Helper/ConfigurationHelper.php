@@ -175,4 +175,14 @@ class ConfigurationHelper extends \Doctrine\DBAL\Migrations\Tools\Console\Helper
     {
         return file_exists($config);
     }
+
+    /**
+     * Return's the application instance.
+     *
+     * @return \AppserverIo\Psr\Application\ApplicationInterface The application instance
+     */
+    protected function getApplication()
+    {
+        return $this->application;
+    }
 }
