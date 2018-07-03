@@ -1,3 +1,13 @@
+# Version 7.0.0
+
+## Bugfixes
+
+* Add DiffCommand to extend from GenerateCommand of this library
+
+## Features
+
+* Add getter for Application in ConfigurationHelper implementation
+
 # Version 6.0.1
 
 ## Bugfixes

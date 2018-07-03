@@ -177,7 +177,7 @@
 
         <bean>
             <name>DiffCommand</name>
-            <class>Doctrine\DBAL\Migrations\Tools\Console\Command\DiffCommand</class>
+            <class>AppserverIo\Console\Server\Doctrine\DBAL\Migrations\Tools\Console\Command\DiffCommand</class>
         </bean>
         <bean>
             <name>ExecuteCommand</name>
