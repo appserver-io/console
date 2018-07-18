@@ -1,3 +1,14 @@
+# Version 7.0.1
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Switch to appserver-io-psr/epb ~7.0 + appserver-io/description ~12.0
+* Use Doctrine Annotations in AbstractMigration class
+
 # Version 7.0.0
 
 ## Bugfixes

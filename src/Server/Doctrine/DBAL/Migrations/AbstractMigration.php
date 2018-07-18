@@ -25,6 +25,7 @@ use Doctrine\DBAL\Migrations\OutputWriter;
 use Doctrine\DBAL\Migrations\SkipMigrationException;
 use Doctrine\DBAL\Migrations\AbortMigrationException;
 use Doctrine\DBAL\Migrations\IrreversibleMigrationException;
+use AppserverIo\Psr\EnterpriseBeans\Annotations as EPB;
 
 /**
  * Abstract class for individual migrations to extend from.
@@ -42,7 +43,7 @@ abstract class AbstractMigration
      * Reference to the Version instance representing this migration
      *
      * @var Version
-     * @Inject
+     * @EPB\Inject
      */
     protected $version;
 
@@ -50,7 +51,7 @@ abstract class AbstractMigration
      * The Doctrine\DBAL\Connection instance we are migrating
      *
      * @var \Doctrine\DBAL\Connection
-     * @Inject
+     * @EPB\Inject
      */
     protected $connection;
 
@@ -58,7 +59,7 @@ abstract class AbstractMigration
      * The OutputWriter object instance used for outputting information
      *
      * @var OutputWriter
-     * @Inject
+     * @EPB\Inject
      */
     protected $outputWriter;
 
@@ -66,7 +67,7 @@ abstract class AbstractMigration
      * Reference to the SchemaManager instance referenced by $_connection
      *
      * @var \Doctrine\DBAL\Schema\AbstractSchemaManager
-     * @Inject
+     * @EPB\Inject
      */
     protected $schemaManager;
 
@@ -74,7 +75,7 @@ abstract class AbstractMigration
      * Reference to the DatabasePlatform instance referenced by $_connection
      *
      * @var \Doctrine\DBAL\Platforms\AbstractPlatform
-     * @Inject
+     * @EPB\Inject
      */
     protected $platform;
 
