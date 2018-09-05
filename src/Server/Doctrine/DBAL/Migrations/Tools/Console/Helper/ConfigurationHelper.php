@@ -43,6 +43,19 @@ class ConfigurationHelper extends \Doctrine\DBAL\Migrations\Tools\Console\Helper
 {
 
     /**
+     * The array with the default configuration filenames.
+     *
+     * @var array
+     */
+    protected $defaultConfigs = array(
+        'migrations.xml',
+        'migrations.yml',
+        'migrations.yaml',
+        'migrations.json',
+        'migrations.php',
+    );
+
+    /**
      * The application instance.
      *
      * @var \AppserverIo\Psr\Application\ApplicationInterface
@@ -99,14 +112,8 @@ class ConfigurationHelper extends \Doctrine\DBAL\Migrations\Tools\Console\Helper
             return $this->configuration = $this->loadConfig($input->getOption('configuration'), $outputWriter);
         }
 
-        //f no any other config has been found, look for default config file in the path
-        $defaultConfigs = [
-            'migrations.xml',
-            'migrations.yml',
-            'migrations.yaml',
-            'migrations.json',
-            'migrations.php',
-        ];
+        // if no any other config has been found, look for default config file in the path
+        $defaultConfigs = $this->getDefaultConfigs();
 
         // try to locate one of the default configuration files in the application's root directory
         foreach ($defaultConfigs as $defaultConfig) {
@@ -184,5 +191,15 @@ class ConfigurationHelper extends \Doctrine\DBAL\Migrations\Tools\Console\Helper
     protected function getApplication()
     {
         return $this->application;
+    }
+
+    /**
+     * Returns the filenames for the default configuration files.
+     *
+     * @return array The filenames
+     */
+    protected function getDefaultConfigs()
+    {
+        return $this->defaultConfigs;
     }
 }
