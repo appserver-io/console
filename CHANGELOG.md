@@ -1,3 +1,14 @@
+# Version 8.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Extract default migration filenames + add getter
+* Add use statement for EPB annotations and switch annotation from @Migrate to @EPB\Migrate in migrations template
+
 # Version 7.0.1
 
 ## Bugfixes

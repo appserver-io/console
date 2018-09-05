@@ -45,12 +45,13 @@ class GenerateCommand extends AbstractCommand
 namespace <namespace>;
 
 use Doctrine\DBAL\Schema\Schema;
+use AppserverIo\Psr\EnterpriseBeans\Annotations as EPB;
 use AppserverIo\Console\Server\Doctrine\DBAL\Migrations\AbstractMigration;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  *
- * @Migration
+ * @EPB\Migration
  */
 class Version<version> extends AbstractMigration
 {
