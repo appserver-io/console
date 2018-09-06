@@ -23,6 +23,7 @@ namespace AppserverIo\Console\Server\Doctrine\DBAL\Migrations\Tools\Console\Help
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Migrations\OutputWriter;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use AppserverIo\Psr\Di\ProviderInterface;
 use AppserverIo\Psr\Application\ApplicationInterface;
 use AppserverIo\Console\Server\Utils\DependencyInjectionKeys;
@@ -107,9 +108,20 @@ class ConfigurationHelper extends \Doctrine\DBAL\Migrations\Tools\Console\Helper
         }
 
         // if a configuration option is passed to the command line, use that configuration instead of any other one
-        if ($input->getOption('configuration')) {
-            $outputWriter->write("Loading configuration from command option: " . $input->getOption('configuration'));
-            return $this->configuration = $this->loadConfig($input->getOption('configuration'), $outputWriter);
+        if ($config = $input->getOption('configuration')) {
+            // query whether or not the configuration file exits
+            if ($this->configExists($absolutePath = $this->getAbsolutePath($config))) {
+                $outputWriter->write("Loading configuration from file: " . $absolutePath);
+                return $this->configuration = $this->loadConfig($absolutePath, $outputWriter);
+            }
+
+            // throw an exception if the given configuration file is NOT available
+            throw new InvalidConfigurationException(
+                sprintf(
+                    'Can\'t read configuration from file "%s"',
+                    $input->getOption('configuration')
+                )
+            );
         }
 
         // if no any other config has been found, look for default config file in the path
@@ -117,12 +129,20 @@ class ConfigurationHelper extends \Doctrine\DBAL\Migrations\Tools\Console\Helper
 
         // try to locate one of the default configuration files in the application's root directory
         foreach ($defaultConfigs as $defaultConfig) {
-            $config = str_replace('/', DIRECTORY_SEPARATOR, sprintf('%s/%s', $this->application->getWebappPath(), $defaultConfig));
-            if ($this->configExists($config)) {
-                $outputWriter->write("Loading configuration from file: $config");
-                return $this->configuration = $this->loadConfig($config, $outputWriter);
+            // query whether or not the configuration file exits
+            if ($this->configExists($absolutePath = $this->getAbsolutePath($defaultConfig))) {
+                $outputWriter->write("Loading default configuration from file: $absolutePath");
+                return $this->configuration = $this->loadConfig($absolutePath, $outputWriter);
             }
         }
+
+        // throw an exception no a configuration file has been specified nor a default file is available
+        throw new InvalidConfigurationException(
+            sprintf(
+                'Can\'t find any default configuration file (one of "%s"',
+                implode(', ', $this->getDefaultConfigs())
+            )
+        );
     }
 
     /**
@@ -167,8 +187,32 @@ class ConfigurationHelper extends \Doctrine\DBAL\Migrations\Tools\Console\Helper
         $configuration->setContainer($container);
         $configuration->load($config);
 
-        /// return the initialized configuration
+        // return the initialized configuration
         return $configuration;
+    }
+
+    /**
+     * Returns the absolute path for the passed confiuration file.
+     *
+     * @param string $config The relative path of the configuration file
+     *
+     * @return string|null The absolute path of the configuration file
+     */
+    protected function getAbsolutePath($config)
+    {
+
+        // query whether or not we already have an absolute path
+        if (is_file($config)) {
+            return $config;
+        }
+
+        // perpare the path, concatenate it with the web application directory
+        $preparedPath = str_replace('/', DIRECTORY_SEPARATOR, sprintf('%s/%s', $this->getApplication()->getWebappPath(), $config));
+
+        // return the concatenated path, if the file is available
+        if (is_file($preparedPath)) {
+            return $preparedPath;
+        }
     }
 
     /**
@@ -180,7 +224,7 @@ class ConfigurationHelper extends \Doctrine\DBAL\Migrations\Tools\Console\Helper
      */
     protected function configExists($config)
     {
-        return file_exists($config);
+        return file_exists($config) && is_readable($config);
     }
 
     /**
