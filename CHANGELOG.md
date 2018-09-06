@@ -1,3 +1,13 @@
+# Version 9.0.0
+
+## Bugfixes
+
+* Refactoring to provide better override options in project specific customizations
+
+## Features
+
+* None
+
 # Version 8.0.0
 
 ## Bugfixes
