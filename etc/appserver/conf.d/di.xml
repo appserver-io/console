@@ -8,6 +8,60 @@
     <beans>
 
         <!-- ================================================================================ -->
+        <!--  GENERIC PROVISIONING STEP DEFINITIONS                                           -->
+        <!-- ================================================================================ -->
+
+        <bean>
+            <name>CreateDatabaseStep</name>
+            <class>AppserverIo\Console\Server\Provisioning\CreateDatabaseStep</class>
+            <shared>false</shared>
+            <epb-ref>
+                <epb-ref-name>SchemaProcessor</epb-ref-name>
+                <epb-link>SchemaProcessor</epb-link>
+            </epb-ref>
+        </bean>
+        <bean>
+            <name>LoadFixturesStep</name>
+            <class>AppserverIo\Console\Server\Provisioning\LoadFixturesStep</class>
+            <shared>false</shared>
+            <epb-ref>
+                <epb-ref-name>SchemaProcessor</epb-ref-name>
+                <epb-link>SchemaProcessor</epb-link>
+            </epb-ref>
+        </bean>
+        <bean>
+            <name>RecreateDatabaseStep</name>
+            <class>AppserverIo\Console\Server\Provisioning\RecreateDatabaseStep</class>
+            <shared>false</shared>
+            <epb-ref>
+                <epb-ref-name>SchemaProcessor</epb-ref-name>
+                <epb-link>SchemaProcessor</epb-link>
+            </epb-ref>
+        </bean>
+        <bean>
+            <name>UpdateSchemaStep</name>
+            <class>AppserverIo\Console\Server\Provisioning\UpdateSchemaStep</class>
+            <shared>false</shared>
+            <epb-ref>
+                <epb-ref-name>SchemaProcessor</epb-ref-name>
+                <epb-link>SchemaProcessor</epb-link>
+            </epb-ref>
+        </bean>
+        <bean>
+            <name>ExecuteMigrationsStep</name>
+            <class>AppserverIo\Console\Server\Provisioning\ExecuteMigrationsStep</class>
+            <shared>false</shared>
+            <res-ref>
+                <res-ref-name>Provider</res-ref-name>
+                <res-ref-type>ProviderInterface</res-ref-type>
+            </res-ref>
+            <epb-ref>
+                <epb-ref-name>SchemaProcessor</epb-ref-name>
+                <epb-link>SchemaProcessor</epb-link>
+            </epb-ref>
+        </bean>
+
+        <!-- ================================================================================ -->
         <!--  APPLICATION BEAN DEFINITIONS                                                    -->
         <!-- ================================================================================ -->
 
