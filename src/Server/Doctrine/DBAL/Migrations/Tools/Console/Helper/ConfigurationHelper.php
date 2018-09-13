@@ -31,6 +31,7 @@ use AppserverIo\Console\Server\Doctrine\DBAL\Migrations\Configuration\XmlConfigu
 use AppserverIo\Console\Server\Doctrine\DBAL\Migrations\Configuration\YamlConfiguration;
 use AppserverIo\Console\Server\Doctrine\DBAL\Migrations\Configuration\ArrayConfiguration;
 use AppserverIo\Console\Server\Doctrine\DBAL\Migrations\Configuration\JsonConfiguration;
+use AppserverIo\Properties\PropertiesUtil;
 
 /**
  * The doctrine migrations command implementation.
@@ -166,6 +167,9 @@ class ConfigurationHelper extends \Doctrine\DBAL\Migrations\Tools\Console\Helper
             'json'  => JsonConfiguration::class,
         ];
 
+        // replace the system properies first
+        $config = $this->replaceSystemProperties($config);
+
         // load the file information
         $info = pathinfo($config);
 
@@ -189,6 +193,33 @@ class ConfigurationHelper extends \Doctrine\DBAL\Migrations\Tools\Console\Helper
 
         // return the initialized configuration
         return $configuration;
+    }
+
+    /**
+     * Replaces the variables with the application's system properties and write
+     * the content to a temporary file in the application's data directory.
+     *
+     * @param string $config The configuration file with the variables that has to be replaced
+     *
+     * @return string The path of the temporary file with the content
+     * @throws \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException Is thrown, if the temporary file can't be written
+     */
+    protected function replaceSystemProperties($config)
+    {
+
+        // replace the variablies in the configuration file
+        $content = $this->getApplication()->replaceSystemProperties($config);
+
+        // create name for the cached version of the file
+        $cachedConfig = sprintf('%s/%s', $this->getApplication()->getCacheDir(), basename($config));
+
+        // write the configuration file with the replaced variables to the cache directory
+        if (file_put_contents($cachedConfig, $content)) {
+            return $cachedConfig;
+        }
+
+        // throw an exception, if the cached configuration file can not we written
+        throw new InvalidConfigurationException(sprintf('Can\'t write cached configuration for configuration file "%s"', $config));
     }
 
     /**

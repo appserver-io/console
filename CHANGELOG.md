@@ -1,3 +1,13 @@
+# Version 10.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Add generic provisioning functionality with steps for database, fixtures and migrations handling
+
 # Version 9.0.0
 
 ## Bugfixes
