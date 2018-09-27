@@ -21,7 +21,6 @@
 namespace AppserverIo\Console\Server\Doctrine\DBAL\Migrations;
 
 use Doctrine\DBAL\Schema\Schema;
-use Doctrine\DBAL\Migrations\OutputWriter;
 use Doctrine\DBAL\Migrations\SkipMigrationException;
 use Doctrine\DBAL\Migrations\AbortMigrationException;
 use Doctrine\DBAL\Migrations\IrreversibleMigrationException;
