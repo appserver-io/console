@@ -6,7 +6,7 @@
 
 ## Features
 
-* Remove unnecessary use statement that results in a can not redeclare class fatal error
+* Switch to appserver-io-psr/applicatio version 1.5.*
 
 # Version 10.0.1
 
