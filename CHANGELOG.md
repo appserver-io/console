@@ -1,3 +1,13 @@
+# Version 11.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Remove unnecessary use statement that results in a can not redeclare class fatal error
+
 # Version 10.0.1
 
 ## Bugfixes
