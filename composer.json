@@ -20,7 +20,7 @@
         "appserver-io/description": "12.0.*",
         "appserver-io-psr/di": "3.0.*",
         "appserver-io-psr/epb": "7.0.*",
-        "appserver-io-psr/application": "1.4.*",
+        "appserver-io-psr/application": "1.5.*",
         "appserver-io/provisioning": "1.0.*"
     },
     "require-dev": {
