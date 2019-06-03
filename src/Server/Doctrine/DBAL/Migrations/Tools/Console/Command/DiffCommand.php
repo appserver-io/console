@@ -43,7 +43,7 @@ class DiffCommand extends GenerateCommand
      */
     protected $schemaProvider;
 
-    public function __construct(SchemaProviderInterface $schemaProvider=null)
+    public function __construct(SchemaProviderInterface $schemaProvider = null)
     {
         $this->schemaProvider = $schemaProvider;
         parent::__construct();
@@ -93,10 +93,10 @@ EOT
         $toSchema = $this->getSchemaProvider()->createSchema();
 
         //Not using value from options, because filters can be set from config.yml
-        if ( ! $isDbalOld && $filterExpr = $conn->getConfiguration()->getFilterSchemaAssetsExpression()) {
+        if (!$isDbalOld && $filterExpr = $conn->getConfiguration()->getFilterSchemaAssetsExpression()) {
             foreach ($toSchema->getTables() as $table) {
                 $tableName = $table->getName();
-                if ( ! preg_match($filterExpr, $this->resolveTableName($tableName))) {
+                if (!preg_match($filterExpr, $this->resolveTableName($tableName))) {
                     $toSchema->dropTable($tableName);
                 }
             }
@@ -128,9 +128,8 @@ EOT
         $output->writeln(file_get_contents($path));
     }
 
-    private function buildCodeFromSql(Configuration $configuration, array $sql, $formatted=false, $lineLength=120)
+    private function buildCodeFromSql(Configuration $configuration, array $sql, $formatted = false, $lineLength = 120)
     {
-        $currentPlatform = $configuration->getConnection()->getDatabasePlatform()->getName();
         $code = [];
         foreach ($sql as $query) {
             if (stripos($query, $configuration->getMigrationsTableName()) !== false) {
@@ -153,18 +152,6 @@ EOT
             }
 
             $code[] = sprintf("\$this->addSql(%s);", var_export($query, true));
-        }
-
-        if (!empty($code)) {
-            array_unshift(
-                $code,
-                sprintf(
-                    "\$this->abortIf(\$this->connection->getDatabasePlatform()->getName() !== %s, %s);",
-                    var_export($currentPlatform, true),
-                    var_export(sprintf("Migration can only be executed safely on '%s'.", $currentPlatform), true)
-                ),
-                ""
-            );
         }
 
         return implode("\n", $code);

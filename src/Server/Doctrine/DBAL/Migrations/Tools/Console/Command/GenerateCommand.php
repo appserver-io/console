@@ -40,8 +40,7 @@ class GenerateCommand extends AbstractCommand
 {
 
     private static $_template =
-            '<?php
-
+        '<?php
 namespace <namespace>;
 
 use Doctrine\DBAL\Schema\Schema;
@@ -55,6 +54,7 @@ use AppserverIo\Console\Server\Doctrine\DBAL\Migrations\AbstractMigration;
  */
 class Version<version> extends AbstractMigration
 {
+
     /**
      * Updates the passed schema.
      *
@@ -64,10 +64,9 @@ class Version<version> extends AbstractMigration
      */
     public function up(Schema $schema)
     {
-        // this up() migration is auto-generated, please modify it to your needs
 <up>
     }
-
+    
     /**
      * Downgrades the passed schema.
      *
@@ -77,10 +76,9 @@ class Version<version> extends AbstractMigration
      */
     public function down(Schema $schema)
     {
-        // this down() migration is auto-generated, please modify it to your needs
 <down>
     }
-
+    
     /**
      * Invoked after the passed schema has been updated.
      *
@@ -89,12 +87,13 @@ class Version<version> extends AbstractMigration
      * @param \Doctrine\DBAL\Schema\Schema $schema The schema
      *
      * @return void
+     * @throws \Doctrine\DBAL\Migrations\AbortMigrationException
      */
-    public function postUp(Schema $schema)
+    public function preUp(Schema $schema)
     {
-        // this postUp() migration is auto-generated, please modify it to your needs
+<abortCondition>
     }
-
+    
     /**
      * Invoked after the passed schema has been downgraded.
      *
@@ -103,10 +102,11 @@ class Version<version> extends AbstractMigration
      * @param \Doctrine\DBAL\Schema\Schema $schema The schema
      *
      * @return void
+     * @throws \Doctrine\DBAL\Migrations\AbortMigrationException
      */
-    public function postDown(Schema $schema)
+    public function preDown(Schema $schema)
     {
-        // this postDown() migration is auto-generated, please modify it to your needs
+<abortCondition>
     }
 }
 ';
@@ -148,17 +148,26 @@ EOT
 
     protected function generateMigration(Configuration $configuration, InputInterface $input, $version, $up = null, $down = null)
     {
+        $currentPlatform = $configuration->getConnection()->getDatabasePlatform()->getName();
+        $abortCondition = sprintf(
+            "\$this->abortIf(\$this->connection->getDatabasePlatform()->getName() !== %s, %s);",
+            var_export($currentPlatform, true),
+            var_export(sprintf("Migration can only be executed safely on '%s'.", $currentPlatform), true)
+        );
+
         $placeHolders = [
             '<namespace>',
             '<version>',
             '<up>',
             '<down>',
+            '<abortCondition>'
         ];
         $replacements = [
             $configuration->getMigrationsNamespace(),
             $version,
             $up ? "        " . implode("\n        ", explode("\n", $up)) : null,
-            $down ? "        " . implode("\n        ", explode("\n", $down)) : null
+            $down ? "        " . implode("\n        ", explode("\n", $down)) : null,
+            $abortCondition ? "        " . implode("\n        ", explode("\n", $abortCondition)) : null
         ];
         $code = str_replace($placeHolders, $replacements, $this->getTemplate());
         $code = preg_replace('/^ +$/m', '', $code);
