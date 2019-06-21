@@ -1,3 +1,13 @@
+# Version 11.0.1
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Add AbstractMysqliMigration
+
 # Version 11.0.0
 
 ## Bugfixes
