@@ -1,3 +1,13 @@
+# Version 12.0.0
+
+## Bugfixes
+
+* None
+
+## Features
+
+* Switch to latest versions of appserver-io/description and appserver-io/provisioning
+
 # Version 11.0.1
 
 ## Bugfixes
